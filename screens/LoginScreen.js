@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   View,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -69,6 +70,10 @@ const LoginScreen = () => {
             alignItems: "center",
           }}
         >
+          <Image
+            source={require("../assets/guruchatapplogo.png")}
+            style={{ width: 300, height: 100 }}
+          />
           <Text style={{ color: "#4A55A2", fontSize: 17, fontWeight: "600" }}>
             Sign In
           </Text>

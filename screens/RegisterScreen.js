@@ -2,6 +2,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   TextInput,
   KeyboardAvoidingView,
   Pressable,
@@ -64,6 +65,10 @@ const RegisterScreen = () => {
             alignItems: "center",
           }}
         >
+          <Image
+            source={require("../assets/guruchatapplogo.png")}
+            style={{ width: 300, height: 100 }}
+          />
           <Text style={{ color: "#4A55A2", fontSize: 17, fontWeight: "600" }}>
             Register
           </Text>
