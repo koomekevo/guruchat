@@ -31,7 +31,7 @@ const RegisterScreen = () => {
       .then((response) => {
         console.log(response);
         Alert.alert(
-          "Registration successful",
+          "Registration Successful",
           "You have been registered Successfully"
         );
         setName("");

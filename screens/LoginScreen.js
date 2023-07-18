@@ -95,7 +95,7 @@ const LoginScreen = () => {
                 width: 300,
               }}
               placeholderTextColor={"black"}
-              placeholder="enter Your Email"
+              placeholder="Enter Your Email"
             />
           </View>
 
@@ -116,7 +116,7 @@ const LoginScreen = () => {
                 width: 300,
               }}
               placeholderTextColor={"black"}
-              placeholder="Passowrd"
+              placeholder="Password"
             />
           </View>
 
@@ -149,7 +149,7 @@ const LoginScreen = () => {
             style={{ marginTop: 15 }}
           >
             <Text style={{ textAlign: "center", color: "gray", fontSize: 16 }}>
-              Dont't have an account? Sign Up
+              Don't have an account? Sign Up
             </Text>
           </Pressable>
         </View>
