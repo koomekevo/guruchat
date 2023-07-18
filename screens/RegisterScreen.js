@@ -69,7 +69,7 @@ const RegisterScreen = () => {
             source={require("../assets/guruchatapplogo.png")}
             style={{ width: 300, height: 100 }}
           />
-          <Text style={{ color: "#4A55A2", fontSize: 17, fontWeight: "600" }}>
+          <Text style={{ color: "#970747", fontSize: 17, fontWeight: "600" }}>
             Register
           </Text>
 
@@ -144,7 +144,7 @@ const RegisterScreen = () => {
             onPress={handleRegister}
             style={{
               width: 200,
-              backgroundColor: "#4A55A2",
+              backgroundColor: "#970747",
               padding: 15,
               marginTop: 50,
               marginLeft: "auto",
