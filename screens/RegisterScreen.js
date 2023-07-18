@@ -38,7 +38,6 @@ const RegisterScreen = () => {
         setName("");
         setEmail("");
         setPassword("");
-        setImage("");
       })
       .catch((error) => {
         Alert.alert(

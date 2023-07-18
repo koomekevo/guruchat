@@ -13,11 +13,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-    required: true,
-  },
-  freindRequests: [
+  friendRequests: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

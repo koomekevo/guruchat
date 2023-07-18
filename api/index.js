@@ -36,10 +36,10 @@ const Message = require("./models/message");
 //endpoint for registration of the user
 
 app.post("/register", (req, res) => {
-  const { name, email, password, image } = req.body;
+  const { name, email, password } = req.body;
 
   // create a new User object
-  const newUser = new User({ name, email, password, image });
+  const newUser = new User({ name, email, password });
 
   // save the user to the database
   newUser
@@ -118,7 +118,7 @@ app.post("/friend-request", async (req, res) => {
   const { currentUserId, selectedUserId } = req.body;
 
   try {
-    //update the recepient's friendRequestsArray!
+    //update the recipient's friendRequestsArray!
     await User.findByIdAndUpdate(selectedUserId, {
       $push: { freindRequests: currentUserId },
     });
@@ -156,25 +156,25 @@ app.get("/friend-request/:userId", async (req, res) => {
 //endpoint to accept a friend-request of a particular person
 app.post("/friend-request/accept", async (req, res) => {
   try {
-    const { senderId, recepientId } = req.body;
+    const { senderId, recipientId } = req.body;
 
     //retrieve the documents of sender and the recipient
     const sender = await User.findById(senderId);
-    const recepient = await User.findById(recepientId);
+    const recipient = await User.findById(recipientId);
 
-    sender.friends.push(recepientId);
-    recepient.friends.push(senderId);
+    sender.friends.push(recipientId);
+    recipient.friends.push(senderId);
 
-    recepient.freindRequests = recepient.freindRequests.filter(
+    recipient.freindRequests = recipient.freindRequests.filter(
       (request) => request.toString() !== senderId.toString()
     );
 
     sender.sentFriendRequests = sender.sentFriendRequests.filter(
-      (request) => request.toString() !== recepientId.toString
+      (request) => request.toString() !== recipientId.toString
     );
 
     await sender.save();
-    await recepient.save();
+    await recipient.save();
 
     res.status(200).json({ message: "Friend Request accepted successfully" });
   } catch (error) {
@@ -218,11 +218,11 @@ const upload = multer({ storage: storage });
 //endpoint to post Messages and store it in the backend
 app.post("/messages", upload.single("imageFile"), async (req, res) => {
   try {
-    const { senderId, recepientId, messageType, messageText } = req.body;
+    const { senderId, recipientId, messageType, messageText } = req.body;
 
     const newMessage = new Message({
       senderId,
-      recepientId,
+      recipientId,
       messageType,
       message: messageText,
       timestamp: new Date(),
@@ -243,9 +243,9 @@ app.get("/user/:userId", async (req, res) => {
     const { userId } = req.params;
 
     //fetch the user data from the user ID
-    const recepientId = await User.findById(userId);
+    const recipientId = await User.findById(userId);
 
-    res.json(recepientId);
+    res.json(recipientId);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -253,14 +253,14 @@ app.get("/user/:userId", async (req, res) => {
 });
 
 //endpoint to fetch the messages between two users in the chatRoom
-app.get("/messages/:senderId/:recepientId", async (req, res) => {
+app.get("/messages/:senderId/:recipientId", async (req, res) => {
   try {
-    const { senderId, recepientId } = req.params;
+    const { senderId, recipientId } = req.params;
 
     const messages = await Message.find({
       $or: [
-        { senderId: senderId, recepientId: recepientId },
-        { senderId: recepientId, recepientId: senderId },
+        { senderId: senderId, recipientId: recipientId },
+        { senderId: recipientId, recipientId: senderId },
       ],
     }).populate("senderId", "_id name");
 
