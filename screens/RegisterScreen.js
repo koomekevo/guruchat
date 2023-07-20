@@ -20,6 +20,7 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [keyboardOffset, setKeyboardOffset] = useState(0);
   const navigation = useNavigation();
+
   const handleRegister = () => {
     const user = {
       name: name,
@@ -29,7 +30,7 @@ const RegisterScreen = () => {
 
     // send a POST  request to the backend API to register the user
     axios
-      .post("http://localhost:8000/register", user)
+      .post("http://192.168.45.50:8000/register", user)
       .then((response) => {
         console.log(response);
         Alert.alert(
