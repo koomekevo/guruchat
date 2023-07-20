@@ -74,7 +74,7 @@ const LoginScreen = () => {
     };
 
     axios
-      .post("http://192.168.45.50:8000/login", user)
+      .post("https://guruchatservice.onrender.com:8000/login", user)
       .then((response) => {
         console.log(response);
         const token = response.data.token;
