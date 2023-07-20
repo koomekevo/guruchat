@@ -12,7 +12,7 @@ const ChatsScreen = () => {
     const acceptedFriendsList = async () => {
       try {
         const response = await fetch(
-          `https://guruchatservice.onrender.com:8000/accepted-friends/${userId}`
+          `https://guruchatservice.onrender.com/accepted-friends/${userId}`
         );
         const data = await response.json();
 

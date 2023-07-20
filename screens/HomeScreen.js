@@ -45,7 +45,7 @@ const HomeScreen = () => {
       setUserId(userId);
 
       axios
-        .get(`https://guruchatservice.onrender.com:8000/users/${userId}`)
+        .get(`https://guruchatservice.onrender.com/users/${userId}`)
         .then((response) => {
           setUsers(response.data);
         })
