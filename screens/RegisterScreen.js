@@ -16,14 +16,12 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setImage] = useState("");
   const navigation = useNavigation();
   const handleRegister = () => {
     const user = {
       name: name,
       email: email,
       password: password,
-      image: image,
     };
 
     // send a POST  request to the backend API to register the user
