@@ -5,10 +5,12 @@ import {
   Image,
   TextInput,
   KeyboardAvoidingView,
+  Keyboard,
   Pressable,
+  ScrollView,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -16,6 +18,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [keyboardOffset, setKeyboardOffset] = useState(0);
   const navigation = useNavigation();
   const handleRegister = () => {
     const user = {
@@ -45,6 +48,36 @@ const RegisterScreen = () => {
         console.log("registration failed", error);
       });
   };
+
+  useEffect(() => {
+    // Subscribe to keyboard events
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      handleKeyboardDidShow
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      handleKeyboardDidHide
+    );
+
+    // Cleanup listeners
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  const handleKeyboardDidShow = (event) => {
+    // Get the height of the keyboard when it appears
+    const keyboardHeight = event.endCoordinates.height;
+    setKeyboardOffset(keyboardHeight);
+  };
+
+  const handleKeyboardDidHide = () => {
+    // Reset the offset when the keyboard hides
+    setKeyboardOffset(0);
+  };
+
   return (
     <View
       style={{
@@ -54,7 +87,10 @@ const RegisterScreen = () => {
         alignItems: "center",
       }}
     >
-      <KeyboardAvoidingView>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: keyboardOffset }}
+        keyboardShouldPersistTaps="handled"
+      >
         <View
           style={{
             marginTop: 100,
@@ -170,7 +206,7 @@ const RegisterScreen = () => {
             </Text>
           </Pressable>
         </View>
-      </KeyboardAvoidingView>
+      </ScrollView>
     </View>
   );
 };

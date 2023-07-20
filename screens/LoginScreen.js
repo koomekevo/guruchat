@@ -5,6 +5,8 @@ import {
   Text,
   TextInput,
   View,
+  ScrollView,
+  Keyboard,
   Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -16,6 +18,8 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+  const [keyboardOffset, setKeyboardOffset] = useState(0);
+
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
@@ -33,6 +37,36 @@ const LoginScreen = () => {
 
     checkLoginStatus();
   }, []);
+
+  useEffect(() => {
+    // Subscribe to keyboard events
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      handleKeyboardDidShow
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      handleKeyboardDidHide
+    );
+
+    // Cleanup listeners
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  const handleKeyboardDidShow = (event) => {
+    // Get the height of the keyboard when it appears
+    const keyboardHeight = event.endCoordinates.height;
+    setKeyboardOffset(keyboardHeight);
+  };
+
+  const handleKeyboardDidHide = () => {
+    // Reset the offset when the keyboard hides
+    setKeyboardOffset(0);
+  };
+
   const handleLogin = () => {
     const user = {
       email: email,
@@ -53,6 +87,7 @@ const LoginScreen = () => {
         console.log("Login Error", error);
       });
   };
+
   return (
     <View
       style={{
@@ -62,7 +97,10 @@ const LoginScreen = () => {
         alignItems: "center",
       }}
     >
-      <KeyboardAvoidingView>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: keyboardOffset }}
+        keyboardShouldPersistTaps="handled"
+      >
         <View
           style={{
             marginTop: 100,
@@ -158,7 +196,7 @@ const LoginScreen = () => {
             </Text>
           </Pressable>
         </View>
-      </KeyboardAvoidingView>
+      </ScrollView>
     </View>
   );
 };
