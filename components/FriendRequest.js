@@ -17,7 +17,7 @@ const FriendRequest = ({ item, friendRequests, setFriendRequests }) => {
           },
           body: JSON.stringify({
             senderId: friendRequestId,
-            recepientId: userId,
+            recipientId: userId,
           }),
         }
       );
@@ -29,7 +29,7 @@ const FriendRequest = ({ item, friendRequests, setFriendRequests }) => {
         navigation.navigate("Chats");
       }
     } catch (err) {
-      console.log("error acceptin the friend request", err);
+      console.log("Error accepting the friend request", err);
     }
   };
   return (
