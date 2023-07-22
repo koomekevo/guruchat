@@ -7,7 +7,9 @@ const LocalStrategy = require("passport-local").Strategy;
 const app = express();
 const port = 8000;
 const cors = require("cors");
-app.use(cors());
+app.use(cors({
+  origin: ["https://guruchatservice.onrender.com"]
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
