@@ -9,7 +9,7 @@ const FriendRequest = ({ item, friendRequests, setFriendRequests }) => {
   const acceptRequest = async (friendRequestId) => {
     try {
       const response = await fetch(
-        "http://localhost:8000/friend-request/accept",
+        "https://guruchatservice.onrender.com/friend-request/accept",
         {
           method: "POST",
           headers: {
