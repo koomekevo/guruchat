@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "guruchat",
+    "name": "GuruChat",
     "slug": "guruchat",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gurucrafts.guruchat"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8530af8b-3d0f-4dea-8310-f1fcf9164255"
+      }
     }
   }
 }
